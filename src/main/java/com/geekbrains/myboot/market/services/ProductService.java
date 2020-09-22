@@ -23,8 +23,16 @@ public class ProductService {
         return productRepository.findAll(PageRequest.of(page, size));
     }
 
-    public Page<Product> findWithFilter(int page, int size, int min, int max) {
-        return productRepository.findWithFilter(PageRequest.of(page, size), min, max);
+    public Page<Product> getProductByPriceGreaterThanEqualAndPriceLessThanEqual(int page, int size, int min, int max) {
+        return productRepository.getProductByPriceGreaterThanEqualAndPriceLessThanEqual(min, max, PageRequest.of(page, size));
+    }
+
+    public Page<Product> getProductByPriceGreaterThanEqual(int page, int size, int min) {
+        return productRepository.getProductByPriceGreaterThanEqual(min, PageRequest.of(page, size));
+    }
+
+    public Page<Product> getProductByPriceLessThanEqual(int page, int size, int max) {
+        return productRepository.getProductByPriceLessThanEqual(max, PageRequest.of(page, size));
     }
 
     public Optional<Product> findById(Long id) {

@@ -19,8 +19,12 @@ public class ProductController {
             page = 1;
         }
         int perPage = 5;
-        if ( min > 0 || max > 0 )
-            model.addAttribute("products", productService.findWithFilter(page - 1, perPage, min, max));
+        if ( min > 0 && max > 0 )
+            model.addAttribute("products", productService.getProductByPriceGreaterThanEqualAndPriceLessThanEqual(page - 1, perPage, min, max));
+        else if ( min > 0 )
+            model.addAttribute("products", productService.getProductByPriceGreaterThanEqual(page - 1, perPage, min));
+        else if ( max > 0 )
+            model.addAttribute("products", productService.getProductByPriceLessThanEqual(page - 1, perPage, max));
         else
             model.addAttribute("products", productService.findAll(page - 1, perPage));
 

@@ -12,7 +12,9 @@ import java.util.List;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
+    Page<Product> getProductByPriceGreaterThanEqualAndPriceLessThanEqual(int min, int max, Pageable var);
 
-    @Query("select p from Product p where p.price > :min and p.price < :max ")
-    Page<Product> findWithFilter(Pageable pag, @Param("min") int min, @Param("max") int max);
+    Page<Product> getProductByPriceGreaterThanEqual(int min, Pageable var);
+
+    Page<Product> getProductByPriceLessThanEqual(int max, Pageable var);
 }
