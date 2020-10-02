@@ -2,13 +2,13 @@ DROP TABLE IF EXISTS `products`;
 
 CREATE TABLE IF NOT EXISTS `products` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(256) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `title` varchar(256) COLLATE utf8mb4_unicode_ci NOT NULL,
   `price` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 
-insert into products (name, price)
+insert into products (title, price)
 values
 ('Bread1', 21),
 ('Bread2', 22),
