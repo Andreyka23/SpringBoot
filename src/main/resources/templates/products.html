@@ -14,6 +14,8 @@
 <body>
 
 <div class="container">
+    <div th:replace="~{navigation :: navigation(Products)}" />
+
     <h1>Товары</h1>
     <table class="table table-hover">
         <thead class="thead-dark">
@@ -29,7 +31,10 @@
             <td th:text="${p.id}"/>
             <td th:text="${p.title}"/>
             <td th:text="${p.price}"/>
-            <td><a th:href="@{'/products/' + ${p.id}}">Редактировать</a></td>
+            <td>
+                <a class="btn btn-success" th:href="@{'/cart/add/' + ${p.id}}">В корзину</a>
+                <a th:href="@{'/products/' + ${p.id}}">Редактировать</a>
+            </td>
         </tr>
         </tbody>
     </table>
