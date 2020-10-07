@@ -27,11 +27,6 @@ public class CartController {
         return "cart";
     }
 
-    @GetMapping("/checkout")
-    public String checkouts(HttpSession session) {
-        return "checkout";
-    }
-
     @GetMapping("/add/{product_id}")
     public void addToCart(
             @PathVariable(name = "product_id") Long productId,
