@@ -1,12 +1,41 @@
 
-DROP TABLE IF EXISTS `customers`;
-CREATE TABLE IF NOT EXISTS `customers` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(256) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `phone` varchar(256) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `address` varchar(256) COLLATE utf8mb4_unicode_ci NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE IF NOT EXISTS `users` (
+    `id` INT(11) NOT NULL AUTO_INCREMENT ,
+    `username` VARCHAR(100) NOT NULL ,
+    `password` VARCHAR(100) NOT NULL ,
+    `email` VARCHAR(200) NOT NULL ,
+    PRIMARY KEY (`id`),
+    UNIQUE `uq_email` (`email`)
+) ENGINE = MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+DROP TABLE IF EXISTS `roles`;
+CREATE TABLE `roles` (
+    `id` INT(11) NOT NULL AUTO_INCREMENT ,
+    `name` VARCHAR(100) NOT NULL ,
+    PRIMARY KEY (`id`)
+) ENGINE = MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+DROP TABLE IF EXISTS `users_roles`;
+CREATE TABLE `users_roles` (
+    `user_id` INT(11) NOT NULL ,
+    `role_id` INT(11) NOT NULL ,
+    PRIMARY KEY (`user_id`, `role_id`),
+    FOREIGN KEY(user_id) REFERENCES users(id),
+    FOREIGN KEY(role_id) REFERENCES roles(id)
+) ENGINE = MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+insert into roles (name)
+values
+('ROLE_USER'), ('ROLE_ADMIN');
+
+insert into users (username, password, email)
+values
+('user', '$2a$04$Fx/SX9.BAvtPlMyIIqqFx.hLY2Xp8nnhpzvEEVINvVpwIPbA3v/.i', 'user@gmail.com');
+
+insert into users_roles (user_id, role_id) values (1, 1), (1, 2);
+
 
 DROP TABLE IF EXISTS `products`;
 CREATE TABLE IF NOT EXISTS `products` (
@@ -19,10 +48,12 @@ CREATE TABLE IF NOT EXISTS `products` (
 DROP TABLE IF EXISTS `orders`;
 CREATE TABLE IF NOT EXISTS `orders` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `customer_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
   `price` int(11) NOT NULL,
+  `phone` varchar(256) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `address` varchar(256) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
-  FOREIGN KEY(customer_id) REFERENCES customers(id)
+  FOREIGN KEY(user_id) REFERENCES users(id)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 DROP TABLE IF EXISTS `order_items`;
@@ -37,7 +68,6 @@ CREATE TABLE IF NOT EXISTS `order_items` (
   FOREIGN KEY(product_id) REFERENCES products(id),
   FOREIGN KEY(order_id) REFERENCES orders(id)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
 
 
 insert into products (title, price)

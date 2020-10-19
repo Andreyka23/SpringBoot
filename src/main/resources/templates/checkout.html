@@ -14,7 +14,7 @@
 <body>
 
 <div class="container">
-    <div th:replace="~{navigation :: navigation(Cart)}" />
+    <div th:replace="~{navigation :: navigation(Orders)}" />
     <h1>Оформление заказа</h1>
 
     <br>
@@ -44,7 +44,7 @@
     </table>
     <br>
     <form th:action="@{'/orders/new'}" method="post" th:if="${!@cart.items.isEmpty()}" >
-        <span>Имя</span> <input type="text" name="name" placeholder="Введите имя" >
+        <span>Имя</span> <input type="text" name="name" placeholder="Введите имя" th:value="${username}" >
         <span>Телефон</span> <input type="text" name="phone" placeholder="Введите телефон" >
         <span>Адрес</span> <input type="text" name="address" placeholder="Введите адрес" >
         <button>Создать заказ</button>
