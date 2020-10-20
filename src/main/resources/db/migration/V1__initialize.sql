@@ -42,8 +42,21 @@ CREATE TABLE IF NOT EXISTS `products` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(256) COLLATE utf8mb4_unicode_ci NOT NULL,
   `price` int(11) NOT NULL,
+  `category_id` int(11),
+  PRIMARY KEY (`id`),
+  FOREIGN KEY(category_id) REFERENCES categories(id)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+DROP TABLE IF EXISTS `categories`;
+CREATE TABLE IF NOT EXISTS `categories` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(256) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+insert into categories (title)
+values
+('Food'), ('Drink');
 
 DROP TABLE IF EXISTS `orders`;
 CREATE TABLE IF NOT EXISTS `orders` (

@@ -32,14 +32,13 @@ public class CartController {
             @PathVariable(name = "product_id") Long productId,
             HttpServletRequest request, HttpServletResponse response
     ) throws IOException {
-        Product p = productService.findById(productId).orElseThrow(() -> new ResourceNotFoundException("Product with id: " + productId + " doesn't exists (add to cart"));
-        cart.addOrIncrement(p);
+        cart.addOrIncrement(productId);
         response.sendRedirect(request.getHeader("referer"));
     }
 
     @GetMapping("/inc/{product_id}")
     public String addOrIncrementProduct(@PathVariable(name = "product_id") Long productId) {
-        cart.incrementOnly(productId);
+        cart.addOrIncrement(productId);
         return "redirect:/cart";
     }
 
