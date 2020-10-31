@@ -13,7 +13,15 @@ angular.module('app').controller('checkoutController', function ($scope, $http) 
     };
 
     $scope.submitCheckout = function () {
-        $http.post(contextPath + '/api/v1/orders', {'username': $scope.username, 'phone': $scope.phone, 'address': $scope.address})
+        $http({
+            url: contextPath + '/api/v1/orders',
+            method: 'POST',
+            params: {
+                username: $scope.username,
+                phone: $scope.phone,
+                address: $scope.address
+            }
+        })
             .then(function (response) {
                 alert('Добавлен новый заказ');
             });

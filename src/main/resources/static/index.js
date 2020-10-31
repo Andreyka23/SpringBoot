@@ -4,7 +4,7 @@
     angular
         .module('app', ['ngRoute', 'ngStorage'])
         .config(config)
-        .run();
+        .run(run);
 
     function config($routeProvider, $httpProvider) {
         $routeProvider
@@ -26,6 +26,10 @@
             .when('/cart', {
                 templateUrl: 'cart/cart.html',
                 controller: 'cartController'
+            })
+            .when('/profile', {
+                templateUrl: 'profile/profile.html',
+                controller: 'profileController'
             })
             .when('/checkout', {
                 templateUrl: 'checkout/checkout.html',

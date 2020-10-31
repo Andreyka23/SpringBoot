@@ -23,6 +23,24 @@ public class User {
     @Column(name = "email")
     private String email;
 
+    @Column(name = "name")
+    private String name;
+
+    @Column(name = "surname")
+    private String surname;
+
+    @Column(name = "phone")
+    private String phone;
+
+    @Column(name = "birthday_year")
+    private Integer birthday_year;
+
+    @Column(name = "gender")
+    private Integer gender;
+
+    @Column(name = "city")
+    private String city;
+
     @ManyToMany
     @JoinTable(name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id"),

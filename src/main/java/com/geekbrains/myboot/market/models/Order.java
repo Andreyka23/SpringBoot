@@ -1,10 +1,12 @@
 package com.geekbrains.myboot.market.models;
 
+import com.geekbrains.myboot.market.utils.Cart;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -33,5 +35,17 @@ public class Order {
 
     @Column(name = "address")
     private String address;
+
+    public Order(User user, Cart cart, String phone, String address) {
+        this.user = user;
+        this.price = cart.getPrice();
+        this.items = new ArrayList<>();
+        this.phone = phone;
+        this.address = address;
+        cart.getItems().stream().forEach(oi -> {
+            oi.setOrder(this);
+            items.add(oi);
+        });
+    }
 
 }
