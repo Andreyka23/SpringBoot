@@ -11,10 +11,7 @@
         <tr ng-repeat="oi in cart.items">
             <td>{{oi.productTitle}}</td>
             <td>
-                <button class="btn btn-success" ng-click="decrementItem(oi.productId)">-</button>
                 {{oi.quantity}}
-                <button class="btn btn-success" ng-click="incrementItem(oi.productId)">+</button>
-                <button class="btn btn-danger" ng-click="removeItem(oi.productId)">X</button>
             </td>
             <td>{{oi.pricePerProduct + ' * ' + oi.quantity + ' = ' + oi.price}}</td>
         </tr>
@@ -25,5 +22,11 @@
         </tr>
         </tbody>
     </table>
-    <a class="btn btn-outline-warning" href="#!/checkout" >Оформить заказ</a>
+    <br>
+    <form novalidate ng-submit="submitCheckout()" >
+        <span>Имя</span> <input type="text" ng-model="username" placeholder="Введите имя" >
+        <span>Телефон</span> <input type="text" ng-model="phone" placeholder="Введите телефон" >
+        <span>Адрес</span> <input type="text" ng-model="address" placeholder="Введите адрес" >
+        <button type="submit">Создать заказ</button>
+    </form>
 </div>

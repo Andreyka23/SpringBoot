@@ -12,8 +12,8 @@
         <div class="form-group col-md-6">
             <label for="filterCategory">Категория</label>
             <select class="custom-select" ng-model="newProduct.category_id" id="filterCategory" >
-                <option value="1">Food</option>
-                <option value="2">Drink</option>
+                <option></option>
+                <option value="{{c.id}}" ng-repeat="c in CategoriesList">{{c.title}}</option>
             </select>
         </div>
         <div>

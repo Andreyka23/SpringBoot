@@ -19,6 +19,16 @@ angular.module('app').controller('storeController', function ($scope, $http) {
             });
     };
 
+    $scope.getCategoriesList = function () {
+        $http({
+            url: contextPath + '/api/v1/categories',
+            method: 'GET'
+        })
+            .then(function (response) {
+                $scope.CategoriesList = response.data;
+            });
+    };
+
     $scope.addToCart = function (productId) {
         $http({
             url: contextPath + '/api/v1/cart/add/' + productId,
@@ -38,4 +48,5 @@ angular.module('app').controller('storeController', function ($scope, $http) {
     }
 
     $scope.fillTable();
+    $scope.getCategoriesList();
 });
