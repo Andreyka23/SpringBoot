@@ -5,6 +5,12 @@ CREATE TABLE IF NOT EXISTS `users` (
     `username` VARCHAR(100) NOT NULL ,
     `password` VARCHAR(100) NOT NULL ,
     `email` VARCHAR(200) NOT NULL ,
+    `name` VARCHAR(200),
+    `surname` VARCHAR(200),
+    `phone` VARCHAR(100),
+    `birthday_year` INT(11),
+    `gender` INT(11),
+    `city` VARCHAR(200),
     PRIMARY KEY (`id`),
     UNIQUE `uq_email` (`email`)
 ) ENGINE = MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

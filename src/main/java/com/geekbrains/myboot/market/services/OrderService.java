@@ -1,5 +1,6 @@
 package com.geekbrains.myboot.market.services;
 
+import com.geekbrains.myboot.market.dto.OrderDto;
 import com.geekbrains.myboot.market.models.Order;
 import com.geekbrains.myboot.market.models.OrderItem;
 import com.geekbrains.myboot.market.models.User;
@@ -11,6 +12,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -30,6 +32,10 @@ public class OrderService {
         return orderRepository.findOrdersByUserEquals(user);
     }
 
+    public List<OrderDto> findAllUserOrdersDtosByUsername(String username) {
+        return orderRepository.findAllOrdersByUsername(username).stream().map(OrderDto::new).collect(Collectors.toList());
+    }
+
     public Order newOrder(User user, String name, String phone, String address) {
         Order order = new Order();
         order.setUser(user);
@@ -42,6 +48,10 @@ public class OrderService {
         order.setItems(cart.getItems());
         orderRepository.save(order);
         return order;
+    }
+
+    public Order save(Order order) {
+        return orderRepository.save(order);
     }
 
 }
