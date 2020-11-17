@@ -5,6 +5,8 @@ import com.geekbrains.myboot.market.models.Order;
 import com.geekbrains.myboot.market.models.OrderItem;
 import com.geekbrains.myboot.market.models.User;
 import com.geekbrains.myboot.market.repositories.OrderRepository;
+import com.geekbrains.myboot.market.soap.orders.OrderItemsSoap;
+import com.geekbrains.myboot.market.soap.orders.OrderSoap;
 import com.geekbrains.myboot.market.utils.Cart;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -52,6 +54,28 @@ public class OrderService {
 
     public Order save(Order order) {
         return orderRepository.save(order);
+    }
+    public List<OrderSoap> findSoapByUsername(String username) {
+        return orderRepository.findAllOrdersByUsernameSoap(username).stream().map(this::mapOrderToSoap).collect(Collectors.toList());
+    }
+
+    private OrderSoap mapOrderToSoap(Order order) {
+        OrderSoap orderSoap = new OrderSoap();
+        orderSoap.setId(order.getId());
+        orderSoap.setUsername(order.getUser().getUsername());
+        orderSoap.setPrice(order.getPrice());
+        orderSoap.setPhone(order.getPhone());
+        orderSoap.setAddress(order.getAddress());
+        orderSoap.getOrderItems().addAll(order.getItems().stream().map(this::mapOrderItemToSoap).collect(Collectors.toList()));
+        return orderSoap;
+    }
+
+    private OrderItemsSoap mapOrderItemToSoap(OrderItem orderItem) {
+        OrderItemsSoap orderItemsSoap = new OrderItemsSoap();
+        orderItemsSoap.setPrice(orderItem.getPrice());
+        orderItemsSoap.setQuantity(orderItem.getQuantity());
+        orderItemsSoap.setProduct(orderItem.getProduct().getTitle());
+        return orderItemsSoap;
     }
 
 }
